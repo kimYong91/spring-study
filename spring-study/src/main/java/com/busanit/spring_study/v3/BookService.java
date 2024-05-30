@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// 서비스 계층 (예 : 백엔드 같은 것)
 @Service  // 서비스(비즈니스) 계층임을 선언
 public class BookService {
 
@@ -40,18 +41,21 @@ public class BookService {
     // UPDATE
     @Transactional // 해당 서비스 내의 DB 접근을 트랜잭션으로 관리
     public Book updateBook(Long id, Book updateBook) {
-        // 책을 조회하여 내용을 변경하고 저장
+        // 주어진 ID로 책을 조회 (책이 없으면 null 반환)
         Book book = bookRepository.findById(id).orElse(null);
-        // 각 필드(컬럼)이 비어있는지 확인하고 업데이트
+        // 책이 존재하는지 확인
         if (book != null) {
+            // 업데이트할 각 필드가 비어있지 않으면 해당 필드 업데이트
             if (updateBook.getTitle() != null) {
                 book.setTitle(updateBook.getTitle());
             }
             if (updateBook.getAuthor() != null) {
                 book.setAuthor(updateBook.getAuthor());
             }
+            // 변경된 책을 데이터베이스에 저장하고 반환
             return bookRepository.save(book);
         } else {
+            // 책이 존재하지 않으면 null 반환
             return null;
         }
     }

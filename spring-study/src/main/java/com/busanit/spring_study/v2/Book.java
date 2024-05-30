@@ -5,7 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity  // JPA 엔티티임을 선언
+@Entity  // JPA 엔티티임을 선언 (엔티티는 매핑을 뜻하고, 번역과 같은 말로 봐도 될 듯
+//                              번역이란 자바의 언어로 작성하였으나 다른 데이터베이스와
+//                              연결되어도 추가 작업없이 바로 기능하고 만들어진다는것을 번역으로 예를 듬)
 public class Book {
 
     @Id     // 기본키

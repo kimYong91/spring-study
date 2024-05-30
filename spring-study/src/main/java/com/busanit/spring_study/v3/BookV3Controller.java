@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// 표현 계층 : 사용자로부터 요청을 받고 응답을 해주는 일을 전담
+// 표현 계층 : 사용자로부터 요청을 받고 응답을 해주는 일을 전담 (예 : 프로트엔드 같은 것)
 @RestController     // 표현 계층임을 선언
 @RequestMapping("api/v3/books")     // 기본 경로
 public class BookV3Controller {
