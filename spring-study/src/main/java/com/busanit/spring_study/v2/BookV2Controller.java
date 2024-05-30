@@ -1,4 +1,4 @@
-package com.busanit.spring_study.db;
+package com.busanit.spring_study.v2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +55,7 @@ public class BookV2Controller {
     // DELETE
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable Long id) {
-        // ID 기준으로 DB에서 책을 삭제
+        // ID 기준으로 DB에서 책이 있는지 조회
         Book book = bookRepository.findById(id).orElse(null);
         if (book != null) {
             bookRepository.delete(book);

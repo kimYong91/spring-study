@@ -10,5 +10,9 @@
         <module name="spring-study.spring-study.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="spring-study.spring-study.main~1" target="17" />
+      <module name="spring-study.spring-study.test~1" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
