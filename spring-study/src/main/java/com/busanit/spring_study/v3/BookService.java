@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// 서비스 계층 (예 : 백엔드 같은 것)
+// 서비스 계층 : 실제로 데이터를 처리하고 비즈니스 요구사항을 충족시키는 역할 (예 : 백엔드 같은 것)
 @Service  // 서비스(비즈니스) 계층임을 선언
 public class BookService {
 
