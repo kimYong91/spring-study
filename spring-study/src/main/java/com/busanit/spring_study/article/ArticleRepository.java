@@ -1,9 +1,12 @@
 package com.busanit.spring_study.article;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 
@@ -49,4 +52,15 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     // 조건 키워드
     // Like, Containing, And, Or, Between, OrderBy 등
+
+
+
+
+    // 페이징과 정렬
+
+    // Page, Pageable 임포트라고 페이징과 정렬을 위한 메서드
+    Page<Article> findAll(Pageable pageable);
+
+    // 특정 필드(author)로 페이징
+    Page<Article> findByAuthor(String author, Pageable pageable);
 }

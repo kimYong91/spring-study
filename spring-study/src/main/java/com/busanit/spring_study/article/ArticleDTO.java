@@ -19,6 +19,7 @@ public class ArticleDTO {
     private String title;
     private String content;
     private String author;
+
     private List<CommentDTO> comments;
 
     // DTO -> 엔티티(엔티티에 @Builder 적용, 빌터 패턴 사용)
