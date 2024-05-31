@@ -52,4 +52,16 @@ public class ArticleController {
             return ResponseEntity.ok().build();
         }
     }
+
+
+    // 커스텀 쿼리 요청
+    @GetMapping("/title/{title}")
+    public List<ArticleDTO> getArticleByTitleContaining(@PathVariable String title) {
+        return articleService.getArticleByTitleContaining(title);
+    }
+
+    @GetMapping("/author/{author}")
+    public List<ArticleDTO> getArticleByAuthor(@PathVariable String author) {
+        return articleService.getArticleByAuthor(author);
+    }
 }

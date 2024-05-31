@@ -92,4 +92,15 @@ public class ArticleService {
             return false;
         }
     }
+
+    // 쿼리 메서드 사용
+    public List<ArticleDTO> getArticleByAuthor(String author) {
+        List<Article> articleList = articleRepository.findByAuthor(author);
+        return articleList.stream().map(Article::toDTO).toList();
+    }
+
+    public List<ArticleDTO> getArticleByTitleContaining(String title) {
+        List<Article> articleList = articleRepository.findByTitleContaining(title);
+        return articleList.stream().map(Article::toDTO).toList();
+    }
 }
