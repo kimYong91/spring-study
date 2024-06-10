@@ -1400,3 +1400,311 @@ public class UserController {
 
 4. `@PutMapping` 메서드:
    - updateUser: 특정 사용자를 업데이트하고 200 OK 상태 코드와 함께 응답을 반환.
+
+
+# Spring REST API
+
+## Spring Framework 이해
+
+### 레퍼런스
+- Spring 공식 문서: [Spring Documentation](https://spring.io/projects/spring-framework)
+- Spring Boot 가이드: [Spring Boot Guide](https://spring.io/guides/gs/spring-boot/)
+- RESTful API 설계: [RESTful API Design](https://restfulapi.net/)
+
+### Spring Framework 소개
+
+- Spring Framework : 자바 플랫폼을 위한 오픈 소스 애플리케이션 프레임워크
+
+#### 주요 특징
+- IoC (Inversion of Control): 객체 생성 및 의존성 관리를 프레임워크가 담당.
+- DI (Dependency Injection): 필요한 객체를 외부에서 주입받아 유연성과 테스트 용이성 증가.
+- 모듈화: 독립적으로 사용 가능한 다양한 모듈로 구성.
+- AOP (Aspect-Oriented Programming): 횡단 관심사를 모듈화하여 코드 중복 감소.
+- 통합성: JPA, JMS, RabbitMQ 등 다양한 기술과의 통합 지원.
+- 커뮤니티: 활발한 커뮤니티와 풍부한 생태계.
+
+#### 주요 구성 요소
+- Spring Core: IoC 컨테이너와 DI 제공 (BeanFactory, ApplicationContext).
+- Spring Boot: 빠르고 쉽게 Spring 애플리케이션 개발 지원, 기본 설정 제공, 설정 작업 최소화.
+- Spring Data: 데이터 접근 통합 (JPA, JDBC 등).
+- Spring MVC: 웹 애플리케이션용 MVC 프레임워크.
+- Spring Security: 인증 및 권한 부여 관리.
+- Spring AOP: AOP 기능 제공.
+
+### Spring 프로젝트 구조
+
+- Spring 프로젝트는 다양한 계층과 구성 요소로 이루어져 있으며, 각 계층은 특정한 역할을 담당
+- 이 구조는 코드의 유지보수성을 높이고, 각 계층의 책임을 명확히 하여 개발을 용이하게 함
+
+#### 1. 프로젝트 기본 구조
+- src/main/java: 애플리케이션의 주요 자바 소스 코드가 위치하는 디렉토리.
+- src/main/resources: 설정 파일, 정적 리소스, 템플릿 등이 위치하는 디렉토리.
+- src/test/java: 테스트 코드가 위치하는 디렉토리.
+- src/test/resources: 테스트 설정 파일 등이 위치하는 디렉토리.
+
+#### 2. 주요 패키지 구조
+- com.example.project: 기본 패키지, 하위 패키지로 세분화.
+    - controller: 웹 요청을 처리하는 컨트롤러 클래스.
+    - service: 비즈니스 로직을 처리하는 서비스 클래스.
+    - repository: 데이터베이스와의 상호작용을 담당하는 리포지토리 인터페이스.
+    - model: 데이터베이스 테이블과 매핑되는 엔티티 클래스.
+    - dto: 데이터 전송 객체 (Data Transfer Object) 클래스.
+    - config: 설정 파일을 관리하는 클래스.
+
+#### 3. 각 계층의 역할
+- Controller (컨트롤러):
+    - 클라이언트의 요청을 처리하고 응답을 반환.
+    - @Controller 또는 @RestController 어노테이션 사용.
+    - URL 매핑: @RequestMapping, @GetMapping, @PostMapping 등 사용.
+
+- Service (서비스):
+    - 비즈니스 로직을 처리.
+    - @Service 어노테이션 사용.
+    - 트랜잭션 관리: @Transactional 어노테이션 사용 가능.
+
+- Repository (리포지토리):
+    - 데이터베이스와의 상호작용 담당.
+    - Spring Data JPA 사용 시, JpaRepository 인터페이스 상속.
+    - CRUD 메서드 제공: save, findById, findAll, delete 등.
+
+- Model (모델):
+    - 데이터베이스 테이블과 매핑되는 엔티티 클래스.
+    - @Entity 어노테이션 사용.
+    - 필드에 @Id, @Column 등 어노테이션 사용.
+
+- DTO (데이터 전송 객체):
+    - 클라이언트와의 데이터 전송을 위한 객체.
+    - 주로 서비스 계층과 컨트롤러 계층 간의 데이터 전달에 사용.
+
+- Config (설정):
+    - 애플리케이션 설정 클래스.
+    - @Configuration 어노테이션 사용.
+    - Bean 정의, 보안 설정 등.
+
+#### 4. 프로젝트 설정 파일
+- application.properties 또는 application.yml:
+    - 애플리케이션 설정을 정의하는 파일.
+    - 데이터베이스 연결 정보, 서버 포트, 로깅 설정 등 포함.
+
+- pom.xml (Maven) 또는 build.gradle (Gradle):
+    - 프로젝트의 의존성을 관리하는 파일.
+    - Spring Boot, JPA, Web, Security 등 필요한 라이브러리 선언.
+
+#### 5. 예제 프로젝트 구조
+```
+src
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── example
+│   │           └── project
+│   │               ├── controller
+│   │               ├── service
+│   │               ├── repository
+│   │               ├── model
+│   │               ├── dto
+│   │               └── config
+│   └── resources
+│       ├── static
+│       ├── templates
+│       └── application.properties
+└── test
+    ├── java
+    │   └── com
+    │       └── example
+    │           └── project
+    └── resources
+```
+
+### Spring Boot 소개
+
+#### Spring Boot의 개요
+- 목적: Spring Framework를 쉽게 사용하고, 설정을 최소화하여 신속하게 애플리케이션을 개발하도록 돕는 도구입니다.
+- 특징: 미리 정의된 설정, 자동 구성, 독립 실행 가능한 애플리케이션을 생성할 수 있습니다.
+- 장점
+    - 복잡한 설정 없이 빠르게 애플리케이션을 시작할 수 있음.
+    - 기본 설정과 자동 구성을 통해 초기 설정 시간 절약
+    - 설정 파일을 통해 외부 구성 관리 (application.properties 또는 application.yml) 등
+
+
+#### 주요 특징
+- 자동 구성 (Auto-Configuration):
+    - 애플리케이션의 설정을 자동으로 구성.
+    - 필요한 설정을 자동으로 찾아 적용하여 개발자의 설정 부담을 줄임.
+
+- 스타터 의존성 (Starter Dependencies):
+    - 특정 기능을 쉽게 추가할 수 있도록 도와주는 의존성 모음.
+    - 예: `spring-boot-starter-web`는 웹 애플리케이션 개발을 위한 모든 필요한 의존성을 포함.
+
+- 독립 실행 가능한 JAR 생성:
+    - 내장 웹 서버(Tomcat, Jetty, Undertow)를 포함한 독립 실행 가능한 JAR 파일 생성.
+    - 별도의 WAS(Web Application Server) 없이 실행 가능.
+
+- 프로덕션 준비 기능:
+    - 모니터링, 로깅, 외부 구성 등을 위한 다양한 기능 제공.
+    - Spring Boot Actuator를 통해 애플리케이션 상태 모니터링 및 관리 가능.
+
+- Spring Initializr:
+    - 웹 인터페이스를 통해 Spring Boot 프로젝트를 손쉽게 생성.
+    - 필요한 의존성을 선택하고, 프로젝트 구조를 자동으로 생성.
+
+
+#### 주요 구성 요소
+- Spring Boot Starter:
+    - 필요한 기능을 쉽게 추가할 수 있도록 도와주는 의존성 모음.
+    - 예: `spring-boot-starter-data-jpa`, `spring-boot-starter-security`.
+
+- Spring Boot DevTools:
+    - 개발 시 편리함을 제공하는 도구 모음.
+    - 자동 재시작, 라이브 릴로드, 구성 파일 변경 시 즉시 반영 등.
+
+- 프로젝트 생성: Spring Initializr 사용
+    - URL: [start.spring.io](https://start.spring.io)
+    - 필요한 의존성 선택 (예: Web, JPA, H2 등.)
+
+
+### Spring Boot 환경 설정 및 프로젝트 생성
+
+#### 1. Spring Boot 환경 설정
+
+##### 기본 도구 설치
+- Java Development Kit (JDK):
+    - JDK 17 이상 버전을 설치.
+- IDE (통합 개발 환경):
+    - IntelliJ IDEA, Eclipse, VS Code 등.
+- 빌드 도구:
+    - Maven 또는 Gradl
+
+#### 2. Spring Boot 프로젝트 생성
+
+##### Spring Initializr 사용
+- 웹 인터페이스: [start.spring.io](https://start.spring.io)
+- 설정 선택:
+    - Project: Gradle - Groovy (빌드 도구)
+    - Language: Java           (언어 선택)
+    - Spring Boot Version: 최신 안정화 버전 선택
+    - Project Metadata:
+        - Group: com.busanit   (프로젝트 그룹 이름)
+        - Artifact: spring-study       (프로젝트의 아이디)
+        - Name: spring-study           (프로젝트 이름 - 일반적으로 아티팩트 이름)
+        - Package Name: com.example.spring_study   (프로젝트 패키지 명: 그룹 + 아티팩트 )
+        - Packaging: Jar       (패키징 방법)
+        - Java Version: 17 이상
+    - Dependencies: 필요한 의존성 추가 (예: Spring Web, Spring Data JPA, H2 Database )
+
+##### 프로젝트 다운로드 및 실행
+1. 프로젝트 생성:
+    - 필요한 설정을 선택하고 "Generate" 버튼 클릭.
+    - ZIP 파일 다운로드 후, 원하는 위치에 압축 해제.
+
+2. IDE에서 프로젝트 열기:
+    - IntelliJ IDEA, Eclipse, 또는 VS Code에서 프로젝트를 열기.
+    - 프로젝트의 루트 디렉토리에 있는 `pom.xml` (Maven) 또는 `build.gradle` (Gradle) 파일을 통해 프로젝트를 불러옴.
+
+3. 의존성 다운로드:
+    - IDE가 자동으로 의존성을 다운로드하고 프로젝트를 빌드.
+
+#### 3. 기본 애플리케이션 설정 및 실행
+
+##### Main 클래스 생성
+- Spring Boot 애플리케이션의 진입점:
+  ```java
+	package com.example.spring_study;
+
+	import org.springframework.boot.SpringApplication;
+	import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+	@SpringBootApplication
+	public class SpringStudyApplication {
+	    public static void main(String[] args) {
+	        SpringApplication.run(SpringStudyApplication.class, args);
+	    }
+	}
+  ```
+##### 브라우저에서 확인
+- 웹 브라우저: `http://localhost:8080/
+
+##### application.properties 설정
+- src/main/resources/application.properties 파일 생성.
+  ```properties
+  server.port=8080
+  spring.datasource.url=jdbc:h2:mem:testdb
+  spring.datasource.driverClassName=org.h2.Driver
+  spring.datasource.username=sa
+  spring.datasource.password=password
+  spring.h2.console.enabled=true
+  ```
+
+##### 간단한 REST 컨트롤러 생성
+- Hello World REST API:
+  ```java
+	package com.example.spring_study.controller;
+
+	import org.springframework.web.bind.annotation.GetMapping;
+	import org.springframework.web.bind.annotation.RestController;
+
+	@RestController
+	public class HelloWorldController {
+	    @GetMapping("/hello")
+	    public String hello() {
+	        return "Hello, World!";
+	    }
+	}
+  ```
+
+##### 애플리케이션 실행
+- IDE에서 실행:
+    - Main 클래스 (`DemoApplication`)의 main 메서드를 실행.
+- 터미널에서 실행:
+    - Maven: `mvn spring-boot:run`
+    - Gradle: `./gradlew bootRun`
+
+##### 브라우저에서 확인
+- 웹 브라우저: `http://localhost:8080/hello`로 접속하여 "Hello, World!" 메시지를 확인.
+
+---
+
+
+### IoC (제어의 역전) 개념
+
+#### 정의
+- Inversion of Control (IoC): 객체의 생성 및 제어 권한을 개발자가 아닌 프레임워크나 컨테이너에 위임하는 디자인 원칙.
+
+#### 주요 특징
+- 객체의 생성 및 관리: 프레임워크가 객체를 생성하고, 의존성을 주입하며, 생명주기를 관리.
+- 유연성 증가: 애플리케이션 코드의 결합도 감소, 유연성 및 재사용성 증가.
+- 테스트 용이성: 객체 간의 의존성을 명확히 하여 유닛 테스트와 모킹이 쉬워짐.
+
+#### IoC 구현 방식
+- Dependency Injection (DI): 객체가 필요한 의존성을 외부에서 주입받는 방식.
+    - Constructor Injection: 생성자를 통해 의존성 주입.
+    - Setter Injection: Setter 메서드를 통해 의존성 주입.
+    - Field Injection: 필드에 직접 의존성 주입 (@Autowired 사용).
+
+- Service Locator: 객체가 자신이 필요한 의존성을 런타임에 검색하여 사용하는 방식.
+
+#### Spring Framework에서의 IoC
+- IoC 컨테이너: Spring의 핵심 부분으로, BeanFactory와 ApplicationContext가 대표적.
+    - BeanFactory: IoC 컨테이너의 기본 구현체.
+    - ApplicationContext: BeanFactory를 확장한 컨테이너로, 추가적인 기능 (예: 이벤트 처리, 메시지 소스 처리) 제공.
+
+#### IoC의 장단점
+- 장점
+    - 모듈성 향상: 컴포넌트 간의 결합도를 낮추어 모듈화가 쉬워짐.
+    - 유연성 증가: 객체 간의 의존성을 쉽게 교체 가능.
+    - 테스트 용이성: 의존성을 주입받기 때문에 단위 테스트 시 Mock 객체 사용이 쉬움.
+
+- 단점
+    - 복잡성 증가: IoC 컨테이너 사용으로 인해 초기 설정이 복잡해질 수 있음.
+    - 추적 어려움: 의존성 주입이 자동으로 이루어지기 때문에 코드에서 객체 생성과 의존성 주입의 흐름을 추적하기 어려울 수 있음.
+
+### Annotation 기반의 스프링 Bean 관리
+
+- Spring Framework는 어노테이션을 사용하여 간편하고 명확하게 Bean을 정의하고 관리
+    - 이전에 사용하던 XML 설정보다 직관적이며, 코드와 설정을 통합. 유지보수가 용이.
+    - 컴포넌트 스캔을 통해 자동으로 Bean을 등록하여 자동 구성
+
+- Spring Bean:
+    - Spring 컨테이너에 의해 관리되는 객체.
+    - 애플리케이션의 구성 요소로, 의존성 주입을 통해 관리됨.
+    - Bean은 Spring IoC (Inversion of Control) 컨테이너에 의해 생성, 구성, 관리 및 제거됨.

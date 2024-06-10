@@ -109,10 +109,15 @@ public class ArticleService {
 
     // 페이징과 정렬
     public Page<ArticleDTO> getArticles(int page, int size, String sortBy) {
+        // PageRequest.of 를 사용하여 페이지, 사이즈, 정렬 정보가 포함된 Pageable 객체 생성
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        // 레포지토리에서 데이터를 조회(Pageable 객체를 매개변수로 사용) => Page<T> 객체를 변환
         Page<Article> articles = articleRepository.findAll(pageable);
+        // Entity -> DTO (리스트)
         List<ArticleDTO> list = articles.stream().map(article -> article.toDTO()).toList();
+        // List -> Page(Page 객체)
         Page<ArticleDTO> articleDTOs = new PageImpl<>(list, pageable, articles.getTotalElements());
+        // Page<DTO>를 컨트롤러에 전달
         return articleDTOs;
     }
 
