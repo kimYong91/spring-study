@@ -22,18 +22,32 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'	// Data JPA
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'	// 뷰 템플릿(mustache)
 	implementation 'org.springframework.boot:spring-boot-starter-web'		// WebServer 등
-	runtimeOnly 'com.h2database:h2'				// In-Memory Database (경량 관계형 DB)
 	runtimeOnly 'com.mysql:mysql-connector-j'	// MySQL 접속 커넥터
 
+
 	// 롬복 : 반복되는 코드 작성을 줄이는 것을 돕는 라이브러리
-	compileOnly 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// JUnit
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api'
+
+	// thymeleaf (타임리프)
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 소스 코드 자동 반영
+
+	runtimeOnly 'com.h2database:h2:2.1.214'				// In-Memory Database (경량 관계형 DB)
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.8'	// Data JPA
+
+
+
 }
 
 tasks.named('test') {
