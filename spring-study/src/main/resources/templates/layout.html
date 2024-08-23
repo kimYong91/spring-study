@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<!-- thymeleaf(타임리프, th)를 쓰기 위해서 xmlns:th="http://www.thymeleaf.org" 이게 필요함 -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, Question</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+<!--기본 템플릿 삽입 안에 삽입될 내용-->
+<th:block layout:fragment="content"></th:block>
+</body>
+</html>
