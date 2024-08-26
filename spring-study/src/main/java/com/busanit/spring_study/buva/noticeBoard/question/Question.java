@@ -25,6 +25,7 @@ public class Question {
 
     private LocalDateTime createDate;
 
+    // 외래 키
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     // CascadeType.REMOVE 질문을 지우면 답변 리스트도 같이 지워짐, 사용하는데 주의 요함 회사에서는 댓글을 몇년동안 보관함
     private List<Answer> answerList;
