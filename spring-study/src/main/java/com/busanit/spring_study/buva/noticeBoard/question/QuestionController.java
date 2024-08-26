@@ -1,11 +1,12 @@
 package com.busanit.spring_study.buva.noticeBoard.question;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +17,9 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/question/list")
-    public String list(Model model) {
-        List<Question> questionList = questionService.getList();
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<Question> questionList = questionService.getList(page);
         model.addAttribute("questionList", questionList);
-        model.addAttribute("hello_template", "Hello Template");
         return "question_list"; // resources/templates 경로 안에 question_list 파일을 만들면 알아서 읽음
     }
 
@@ -28,5 +28,27 @@ public class QuestionController {
         Question question = questionService.getDetail(id);
         model.addAttribute("question", question);
         return "question_detail";
+    }
+
+    @GetMapping("/question/create")
+    public String questionCreate(QuestionForm questionForm) {
+        return "question_form";
+    }
+
+//    @PostMapping("/question/create")
+//    public String questionCreate(@RequestParam(value = "subject") String subject, @RequestParam(value = "content") String content) {
+//        String url = "redirect:/question/list";
+//        questionService.create(subject,content);
+//        return url;
+//    }
+
+    @PostMapping("/question/create")
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "question_form";
+        }
+        String url = "redirect:/question/list";
+        questionService.create(questionForm.getSubject(), questionForm.getContent());
+        return url;
     }
 }

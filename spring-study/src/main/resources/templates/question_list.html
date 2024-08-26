@@ -18,21 +18,25 @@
                 </tr>
             </tbody>
         </table>
+        <!--   페이징 처리     -->
+        <div th:if="${!questionList.isEmpty()}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${!questionList.hasPrevious} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${questionList.number-1}|}">
+                        <span>이전</span>
+                    </a>
+                </li>
+                <li>
+                    페이지
+                </li>
+                <li class="page-item" th:classappend="${!questionList.hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${questionList.number+1}|}">
+                        <span>다음</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <a th:href="@{/question/create}" class="btn btn-primary">질문 등록</a>
     </div>
-<!--===================================================================-->
-<!--    <h2 th:text="${hello_template}"></h2>-->
-<!--<table border="1">-->
-<!--    <thead>-->
-<!--        <th>제목</th>-->
-<!--        <th>작성일</th>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--        <tr th:each="question : ${questionList}"> &lt;!&ndash; for(question : questionList) 동일 &ndash;&gt;-->
-<!--            <td>-->
-<!--               <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a> &lt;!&ndash; '|' 주소 '|' : 두 개의 참조 값을 연결해 줌 &ndash;&gt;-->
-<!--            </td> &lt;!&ndash; question.getsubject 동일 &ndash;&gt;-->
-<!--            <td th:text="${question.createDate}"></td>-->
-<!--        </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
 </html>

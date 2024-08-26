@@ -2,6 +2,7 @@ package com.busanit.spring_study;
 
 import com.busanit.spring_study.buva.noticeBoard.question.Question;
 import com.busanit.spring_study.buva.noticeBoard.question.QuestionRepository;
+import com.busanit.spring_study.buva.noticeBoard.question.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,9 @@ class QuestionRepositoryTests {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+
+	@Autowired
+	private QuestionService questionService;
 
 	@Test
 	void contextLoads() {
@@ -90,5 +94,15 @@ class QuestionRepositoryTests {
 		}
 
 		assertEquals(1, this.questionRepository.count());
+	}
+
+	// 더미 데이터 생성
+	@Test
+	void createTestData() {
+		for(int i = 1; i <= 298; i++) {
+			String subject = String.format("테스트 데이터:[%03d]", i);
+			String content = "제곳네";
+			questionService.create(subject,content);
+		}
 	}
 }
