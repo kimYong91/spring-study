@@ -10,7 +10,8 @@
             </thead>
             <tbody>
                 <tr th:each="question, loop : ${questionList}"> <!-- for(question : questionList) 동일 -->
-                    <td th:text="${loop.count}"></td>
+                    <td th:text="${loop.count}"></td> <!-- 페이지에 생성된 게시물 사이즈로 번호 생성 -->
+                    <!-- <td th:text="${question.id}"></td> 게시물 아이디로 번호 생성 -->
                     <td>
                         <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a> <!-- '|' 주소 '|' : 두 개의 참조 값을 연결해 줌 -->
                     </td>                                                   <!-- question.getsubject 동일 -->
