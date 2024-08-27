@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+// 만드는 순서 1
 @Data
 @Entity
 //@Table(name = "tbl_answer")   // 테이블 명을 클래스명과 다르게 설정하고 싶을 때 사용

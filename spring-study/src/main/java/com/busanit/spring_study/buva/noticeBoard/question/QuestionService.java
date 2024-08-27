@@ -1,15 +1,19 @@
 package com.busanit.spring_study.buva.noticeBoard.question;
 
+import com.busanit.spring_study.buva.noticeBoard.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// 만드는 순서 5
 @Service
 public class QuestionService {
 
@@ -20,9 +24,11 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    // 페이지네이션
+    // 페이지네이션 + 게시물 최신순 정렬
     public Page<Question> getList(int page) {
-        Pageable pageable = PageRequest.of(page, 10);
+        List<Sort.Order> sorts = new ArrayList<>(); // 게시물 최신순 정렬
+        sorts.add(Sort.Order.desc("createDate"));   // 게시물 최신순 정렬
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return questionRepository.findAll(pageable);
     }
 

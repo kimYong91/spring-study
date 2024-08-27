@@ -1,6 +1,7 @@
 package com.busanit.spring_study.buva.noticeBoard.question;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -8,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+// 만드는 순서 8
+@Slf4j
 @Controller
 public class QuestionController {
 
@@ -20,6 +21,11 @@ public class QuestionController {
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<Question> questionList = questionService.getList(page);
         model.addAttribute("questionList", questionList);
+        log.debug(model.toString());
+        log.debug("dkdkdkdk");
+        log.info("dddd");
+        log.warn("dddd");
+        log.error("eeeeee");
         return "question_list"; // resources/templates 경로 안에 question_list 파일을 만들면 알아서 읽음
     }
 

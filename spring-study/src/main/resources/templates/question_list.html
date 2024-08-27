@@ -10,11 +10,14 @@
             </thead>
             <tbody>
                 <tr th:each="question, loop : ${questionList}"> <!-- for(question : questionList) 동일 -->
-                    <td th:text="${loop.count}"></td> <!-- 페이지에 생성된 게시물 사이즈로 번호 생성 -->
+                    <td th:text="${questionList.getTotalElements - (questionList.number * questionList.size) - loop.index}"></td> <!-- 페이지에 생성된 게시물 사이즈로 번호 생성 -->
                     <!-- <td th:text="${question.id}"></td> 게시물 아이디로 번호 생성 -->
                     <td>
                         <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a> <!-- '|' 주소 '|' : 두 개의 참조 값을 연결해 줌 -->
-                    </td>                                                   <!-- question.getsubject 동일 -->
+                                                                                <!-- question.getsubject 동일 -->
+                        <!--  댓글 갯수 표시  -->
+                        <span class="text-danger small ms-2" th:if="${#lists.size(question.answerList) > 0}" th:text="${#lists.size(question.answerList)}"></span>
+                    </td>
                     <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>
             </tbody>
@@ -24,11 +27,14 @@
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${!questionList.hasPrevious} ? 'disabled'">
                     <a class="page-link" th:href="@{|?page=${questionList.number-1}|}">
+                                                    <!--  @{|?page=${questionList.number-1}|}이건 @{|question/list/?page=${questionList.number-1}|}이것과 동일하다     -->
                         <span>이전</span>
                     </a>
                 </li>
-                <li>
-                    페이지
+                <li class="page-item" th:each="page: ${#numbers.sequence(0, questionList.totalPages-1)}"
+                    th:if="${page >= questionList.number-5 and page <= questionList.number+5}"
+                    th:classappend="${page == questionList.number} ? 'active'">
+                    <a class="page-link" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
                 </li>
                 <li class="page-item" th:classappend="${!questionList.hasNext} ? 'disabled'">
                     <a class="page-link" th:href="@{|?page=${questionList.number+1}|}">

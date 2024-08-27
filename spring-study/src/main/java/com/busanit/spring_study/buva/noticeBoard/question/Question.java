@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// 만드는 순서 2
 @Getter
 @Setter
 @Entity

@@ -1,4 +1,4 @@
-package com.busanit.spring_study.buva.noticeBoard.question;
+package com.busanit.spring_study.buva.noticeBoard;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

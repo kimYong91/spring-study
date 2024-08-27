@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+// 만드는 순서 4
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Question findBySubject(String subject);
@@ -16,4 +17,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     // 페이지네이션
     @Override
     Page<Question> findAll(Pageable pageable);
+//    Page<Question> findAllOrderByCreateDateDsc(Pageable pageable);
+
 }
