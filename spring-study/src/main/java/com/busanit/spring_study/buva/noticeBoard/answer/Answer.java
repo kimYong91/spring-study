@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id; // DB에 저장 될 시 Long으로 저장 되어서 타입을 Long으로 하면 되지만 Integer은 자주 사용할 수 있음(예상)
 
 //    @Column(columnDefinition = "TEXT", name = "ch_content") // name = 컬럼명 설정 가능, 없으면 필드명으로 됨
     @Column(columnDefinition = "TEXT")

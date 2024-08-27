@@ -1,3 +1,4 @@
+<!-- 만드는 순서 9 -->
 <!DOCTYPE html>
 <!-- thymeleaf(타임리프, th)를 쓰기 위해서 xmlns:th="http://www.thymeleaf.org" 이게 필요함 -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
@@ -12,7 +13,7 @@
 <!--여기에 네비게이션 추가하기-->
 <nav th:replace="~{navbar :: navbarFragment}"></nav>
 
-<!--기본 템플릿 삽입 안에 삽입될 내용-->
+<!--기본 템플릿 삽입 안에 삽입될 내용 (question_list, question_form, question_detail)-->
 <th:block layout:fragment="content"></th:block>
 
 <script th:src="@{/js/bootstrap.min.js}"></script>

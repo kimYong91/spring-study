@@ -1,6 +1,5 @@
 package com.busanit.spring_study.buva.noticeBoard.question;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

@@ -20,6 +20,7 @@ public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
+    // 모든 질문 조회
     public List<Question> getList() {
         return questionRepository.findAll();
     }
@@ -32,6 +33,7 @@ public class QuestionService {
         return questionRepository.findAll(pageable);
     }
 
+    // id로 질문 조회
     public Question getDetail(Integer id) {
         Optional<Question> question = questionRepository.findById(id);
         if (question.isPresent()) {
@@ -41,7 +43,8 @@ public class QuestionService {
         }
     }
 
-    public void create(String subject, String content ) {
+    // 질문 작성
+    public void create(String subject, String content) {
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
