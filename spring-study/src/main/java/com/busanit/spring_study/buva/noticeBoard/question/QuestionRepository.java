@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-// 만드는 순서 4
+// 만드는 순서 5
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Question findBySubject(String subject);

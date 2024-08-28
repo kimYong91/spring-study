@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-// 만드는 순서
+// 만드는 순서 20
 @Controller
 // RequestMapping() : '()'안의 주소가 이 클래스안에 만드는 모든 메서드의 공통 주소가 됨
 // 예 : 메서드 주소 /create > /user/create

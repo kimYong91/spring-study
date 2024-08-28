@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// 만드는 순서 7
+// 만드는 순서 16
 @Data
 public class QuestionForm {
 

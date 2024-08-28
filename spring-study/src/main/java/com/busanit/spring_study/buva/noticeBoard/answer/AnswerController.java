@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-// 만드는 순서 7
+// 만드는 순서 10
 @Controller
 public class AnswerController {
     @Autowired

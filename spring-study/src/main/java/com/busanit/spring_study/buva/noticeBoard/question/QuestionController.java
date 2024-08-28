@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-// 만드는 순서 8
+// 만드는 순서 17
 @Slf4j
 @Controller
 public class QuestionController {

@@ -7,7 +7,7 @@ import lombok.Data;
 
 import java.util.List;
 
-// 만드는 순서
+// 만드는 순서 3
 @Entity
 @Data
 public class SiteUser {
