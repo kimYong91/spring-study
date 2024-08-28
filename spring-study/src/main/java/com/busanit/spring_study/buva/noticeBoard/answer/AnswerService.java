@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-// 만드는 순서 6
+// 만드는 순서 5
 @Service
 public class AnswerService {
     @Autowired

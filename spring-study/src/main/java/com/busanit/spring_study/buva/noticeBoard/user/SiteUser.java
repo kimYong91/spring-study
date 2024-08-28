@@ -1,8 +1,13 @@
 package com.busanit.spring_study.buva.noticeBoard.user;
 
+import com.busanit.spring_study.buva.noticeBoard.answer.Answer;
+import com.busanit.spring_study.buva.noticeBoard.question.Question;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
+// 만드는 순서
 @Entity
 @Data
 public class SiteUser {
@@ -14,9 +19,14 @@ public class SiteUser {
     @Column(unique = true)
     private String username;
 
-    @Column(length = 18)
     private String password;
 
     @Column(unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "siteUser")
+    private List<Question> questionList;
+
+    @OneToMany(mappedBy = "siteUser")
+    private List<Answer> answerList;
 }

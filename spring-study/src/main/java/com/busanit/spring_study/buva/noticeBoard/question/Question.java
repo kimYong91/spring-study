@@ -1,6 +1,7 @@
 package com.busanit.spring_study.buva.noticeBoard.question;
 
 import com.busanit.spring_study.buva.noticeBoard.answer.Answer;
+import com.busanit.spring_study.buva.noticeBoard.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +31,9 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     // CascadeType.REMOVE 질문을 지우면 답변 리스트도 같이 지워짐, 사용하는데 주의 요함 회사에서는 댓글을 몇년동안 보관함
     private List<Answer> answerList;
+
+    // 사용자 한명이 여러 질문을 할 수 있다.
+    // 여러 질문을 할 수 있다. 사용자 한 명이
+    @ManyToOne
+    private SiteUser siteUser;
 }

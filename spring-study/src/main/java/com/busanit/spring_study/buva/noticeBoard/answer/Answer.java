@@ -2,6 +2,7 @@ package com.busanit.spring_study.buva.noticeBoard.answer;
 
 
 import com.busanit.spring_study.buva.noticeBoard.question.Question;
+import com.busanit.spring_study.buva.noticeBoard.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,8 +24,13 @@ public class Answer {
 //    @Column(name = "writeDate", table = "BBS")    // 설정을 하면 테이블명을 원하는데로 정할 수 있음
     private LocalDateTime createDate;
 
+    // 하나의 질문에
     @ManyToOne
     private Question question;
+
+    // 한 사람이 여러 답변을 할 수 있다.
+    @ManyToOne
+    private SiteUser siteUser;
 
     // 커스텀 생성자를 사용할 시 기본 생성자는 필수로 만들어야함
     public Answer(){}

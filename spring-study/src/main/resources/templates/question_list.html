@@ -1,4 +1,4 @@
-<!-- 만드는 순서 13 -->
+<!-- 만드는 순서 11 -->
 <html layout:decorate="~{layout}">
     <div layout:fragment="content" class="container my-3">
         <table class="table">
@@ -34,7 +34,7 @@
                 </li>
                 <li class="page-item" th:each="page: ${#numbers.sequence(0, questionList.totalPages-1)}"
                     th:if="${page >= questionList.number-5 and page <= questionList.number+5}"
-                    th:classappend="${page == questionList.number} ? 'active'">
+                    th:classappend="${page == questionList.number} ? 'active'"> <!-- active는 부트스트립에서 제공하는 기능 -->
                     <a class="page-link" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
                 </li>
                 <li class="page-item" th:classappend="${!questionList.hasNext} ? 'disabled'">
