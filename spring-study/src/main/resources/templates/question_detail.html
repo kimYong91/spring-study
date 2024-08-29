@@ -1,16 +1,52 @@
 <!-- 만드는 순서 12 -->
 <html layout:decorate="~{layout}">
     <div layout:fragment="content" class="container my-3">
-<!--    질문    -->
+
+        <!-- 질문 -->
         <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
         <div class="card my-3">
             <div class="card-body">
+
+                <!--  작성자, 작성일, 수정일   -->
                 <div class="card-text" th:text="${question.content}"></div>
                 <div class="d-flex justify-content-end">
+
+                    <!-- 수정일 -->
+                    <div class="badge bg-light text-dark p-2 text-start mx-3"
+                         th:if="${question.modifyDate != null}">
+                        <div class="mb-2">modified at</div>
+                        <div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                    </div>
+
+                    <!--  작성자, 작성일   -->
                     <div class="badge bg-light text-dark p-2 text-start">
+                        <div class="mb-2">
+                            <span th:if="${question.siteUser != null}"
+                                  th:text="${question.siteUser.username}"></span></div>
                         <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
                     </div>
                 </div>
+
+                <div class="my-3">
+                    <!-- "isAuthenticated()" 로그인 했을때만 보여라
+                    '#'은 함수를 호출할때 씀
+                     sec : 스프링 시큐리티
+                     th : 타임 리프 -->
+                    <a class="btn btn-sm btn-outline-secondary"
+                       th:href="@{|/question/modify/${question.id}|}"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${question.siteUser != null and #authentication.getPrincipal().getUsername() == question.siteUser.username}"
+                       th:text="수정"></a>
+
+                    <!-- 타임리프가 아닌 부트스트립을 활용하여 삭제 기능 구현 -->
+                    <a class="delete btn btn-sm btn-outline-secondary"
+                       href="javascript:void(0);"
+                       th:data-uri="@{|/question/delete/${question.id}|}"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${question.siteUser != null and #authentication.getPrincipal().getUsername() == question.siteUser.username}"
+                       th:text="삭제"></a>
+                </div>
+
             </div>
         </div>
 
@@ -22,17 +58,82 @@
             <div class="card-body">
                 <div class="card-text" th:text="${answer.content}"></div>
                 <div class="d-flex justify-content-end">
+
+                    <!-- 수정일 -->
+                    <div class="badge bg-light text-dark p-2 text-start mx-3"
+                         th:if="${answer.modifyDate != null}">
+                        <div class="mb-2">modified at</div>
+                        <div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                    </div>
+
+                    <!--  작성자, 작성일   -->
                     <div class="badge bg-light text-dark p-2 text-start">
+                        <div class="mb-2">
+                            <span th:if="${answer.siteUser != null}"
+                                  th:text="${answer.siteUser.username}"></span>
+                        </div>
                         <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
                     </div>
+
                 </div>
+
+                <div class="my-3">
+                    <!-- "isAuthenticated()" 로그인 했을때만 보여라
+                    '#'은 함수를 호출할때 씀
+                     sec : 스프링 시큐리티
+                     th : 타임 리프 -->
+                    <a class="btn btn-sm btn-outline-secondary"
+                       th:href="@{|/answer/modify/${answer.id}|}"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${answer.siteUser != null and #authentication.getPrincipal().getUsername() == answer.siteUser.username}"
+                       th:text="수정"></a>
+
+                    <!-- 타임리프가 아닌 부트스트립을 활용하여 삭제 기능 구현 -->
+                    <a class="delete btn btn-sm btn-outline-secondary"
+                       href="javascript:void(0);"
+                       th:data-uri="@{|/answer/delete/${answer.id}|}"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${answer.siteUser != null and #authentication.getPrincipal().getUsername() == answer.siteUser.username}"
+                       th:text="삭제"></a>
+                </div>
+
             </div>
         </div>
 
         <!--답변작성-->
-        <form class="my-3" method="post" th:action="@{|/answer/create/${question.id}|}">
-            <textarea class="form-control" name="content" id="content" rows="10"></textarea>
+        <form class="my-3" method="post"
+              th:action="@{|/answer/create/${question.id}|}"
+              th:object="${answerForm}">
+
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+            <!-- 로그인 되었을 때와 안되었을 때 코드, disabled -->
+            <textarea sec:authorize="isAnonymous()" disabled
+                      th:field="*{content}"
+                      class="form-control" name="content" id="content" rows="10"></textarea>
+            <textarea sec:authorize="isAuthenticated()"
+                      th:field="*{content}"
+                      class="form-control" name="content" id="content" rows="10"></textarea>
+
             <input class="btn btn-primary my-2" type="submit" value="답변 등록">
         </form>
+        <script type="text/javascript">
+<!--            const delete_elements = document.getElementsByClassName("delete");-->
+<!--            Array.from(delete_elements).forEach(function(element) {-->
+<!--                element.addEventListener('click', function() {-->
+<!--                    if(confirm("정말로 삭제하시겠습니까?")) {-->
+<!--                        location.href = this.dataset.uri;-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+            const delete_elements = document.getElementsByClassName("delete");
+            Array.from(delete_elements).forEach(element => {
+                element.addEventListener('click', () => {
+                    if(confirm("정말로 삭제하시겠습니까?")) {
+                        const uri = element.dataset.uri;
+                        location.href = uri;
+                    }
+                });
+            });
+        </script>
     </div>
 </html>

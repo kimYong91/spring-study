@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -22,6 +23,7 @@ import java.util.List;
 // 자신의 서버에서 다운을 받는지, 보는지 등을 확인하는 기능이 있어서 비회원 홈페이지를 하더라도 필요함
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -51,7 +53,7 @@ public class SecurityConfig {
                 (formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/")
                                                                         // 로그인에 성공하면 '/'주소로 간다.
         ).logout(
-                // 로그아웃
+                // 로그아웃 : 따로 입력할 것이 없어서 이 코드 하나로 로그아웃이 해결됨
                 (logout) -> logout.logoutRequestMatcher(
                         new AntPathRequestMatcher("/user/logout")
                 ).logoutSuccessUrl("/").invalidateHttpSession(true)

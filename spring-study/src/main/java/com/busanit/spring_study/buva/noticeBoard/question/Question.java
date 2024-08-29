@@ -36,4 +36,6 @@ public class Question {
     // 여러 질문을 할 수 있다. 사용자 한 명이
     @ManyToOne
     private SiteUser siteUser;
+
+    private LocalDateTime ModifyDate;
 }

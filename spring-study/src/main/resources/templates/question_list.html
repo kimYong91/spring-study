@@ -3,21 +3,26 @@
     <div layout:fragment="content" class="container my-3">
         <table class="table">
             <thead class="table-dark">
-                <tr>
+                <tr class="text-center">
                     <th>번호</th>
-                    <th>제목</th>
+                    <th class="col-7">제목</th>
+                    <th>작정자</th>
                     <th>작성일</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="question, loop : ${questionList}"> <!-- for(question : questionList) 동일 -->
+                <tr class="text-center" th:each="question, loop : ${questionList}"> <!-- for(question : questionList) 동일 -->
                     <td th:text="${questionList.getTotalElements - (questionList.number * questionList.size) - loop.index}"></td> <!-- 페이지에 생성된 게시물 사이즈로 번호 생성 -->
                     <!-- <td th:text="${question.id}"></td> 게시물 아이디로 번호 생성 -->
-                    <td>
+                    <td class="text-start">
                         <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a> <!-- '|' 주소 '|' : 두 개의 참조 값을 연결해 줌 -->
                                                                                 <!-- question.getsubject 동일 -->
                         <!--  댓글 갯수 표시  -->
                         <span class="text-danger small ms-2" th:if="${#lists.size(question.answerList) > 0}" th:text="${#lists.size(question.answerList)}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${question.siteUser != null}"
+                              th:text="${question.siteUser.username}"></span>
                     </td>
                     <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 // 만드는 순서 19
 @RequiredArgsConstructor
-@Service
+@Service                                    // UserDetailsService : 스프링에서 만들어 준 것
 public class UserSecurityService implements UserDetailsService {
 
     // @Autowired 이게 없어도 되는 이유 > @RequiredArgsConstructor 이게 있어서
@@ -29,7 +29,7 @@ public class UserSecurityService implements UserDetailsService {
         Optional<SiteUser> _siteUser = userRepository.findByUsername(username);  // 임시적으로 이 코드내에서만 비교할 때 사용할 키워드 이름에 '_이름' 으로 준다.
         // 데이터 있는지 확인
         if (_siteUser.isEmpty()) {
-            throw  new UsernameNotFoundException("사용자를 찾을수 없습니다.");
+            throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }
         SiteUser siteUser = _siteUser.get();
         // 권한설정

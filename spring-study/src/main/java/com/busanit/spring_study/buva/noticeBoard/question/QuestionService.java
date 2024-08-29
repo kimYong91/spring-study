@@ -1,6 +1,7 @@
 package com.busanit.spring_study.buva.noticeBoard.question;
 
 import com.busanit.spring_study.buva.noticeBoard.DataNotFoundException;
+import com.busanit.spring_study.buva.noticeBoard.user.SiteUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,11 +45,26 @@ public class QuestionService {
     }
 
     // 질문 작성
-    public void create(String subject, String content) {
+    public void create(String subject, String content, SiteUser author) {
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
+        q.setSiteUser(author);
         q.setCreateDate(LocalDateTime.now());
         questionRepository.save(q);
+    }
+    public void create(String subject, String content) {
+        create(subject, content, null);
+    }
+
+    public void modify(Question question, String subject, String content) {
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setModifyDate(LocalDateTime.now());
+        questionRepository.save(question);
+    }
+
+    public void delete(Question question) {
+        questionRepository.delete(question);
     }
 }

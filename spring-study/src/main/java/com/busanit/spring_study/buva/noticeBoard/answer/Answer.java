@@ -32,6 +32,8 @@ public class Answer {
     @ManyToOne
     private SiteUser siteUser;
 
+    private LocalDateTime modifyDate;
+
     // 커스텀 생성자를 사용할 시 기본 생성자는 필수로 만들어야함
     public Answer(){}
     public Answer(String table_name){}
