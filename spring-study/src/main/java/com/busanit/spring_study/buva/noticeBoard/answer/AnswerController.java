@@ -1,7 +1,6 @@
 package com.busanit.spring_study.buva.noticeBoard.answer;
 
 import com.busanit.spring_study.buva.noticeBoard.question.Question;
-import com.busanit.spring_study.buva.noticeBoard.question.QuestionForm;
 import com.busanit.spring_study.buva.noticeBoard.question.QuestionService;
 import com.busanit.spring_study.buva.noticeBoard.user.SiteUser;
 import com.busanit.spring_study.buva.noticeBoard.user.UserService;
