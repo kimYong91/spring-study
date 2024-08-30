@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 // 만드는 순서 2
 @Getter
@@ -38,4 +39,7 @@ public class Question {
     private SiteUser siteUser;
 
     private LocalDateTime ModifyDate;
+
+    @ManyToMany
+    private Set<SiteUser> Like;
 }

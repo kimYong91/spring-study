@@ -39,13 +39,10 @@ public class AnswerController {
 //        if (principal == null) {
 //            answerService.create(question, content);
 //        } else {
-//            SiteUser siteUser = userService.getUser(principal.getName());
-//            answerService.create(question, content, siteUser);
+             SiteUser siteUser = userService.getUser(principal.getName());
+             Answer answer = answerService.create(question, content, siteUser);
 //        }
-
-        SiteUser siteUser = userService.getUser(principal.getName());
-        answerService.create(question, content, siteUser);
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect:/question/detail/%s#answer_%s", id, answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -75,7 +72,7 @@ public class AnswerController {
         if (!answer.getSiteUser().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
-        String url = String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        String url = String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
         answerService.modify(answer, answerForm.getContent());
         return url;
     }
@@ -88,8 +85,19 @@ public class AnswerController {
         if (!answer.getSiteUser().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
-        String url = String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        String url = String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
         answerService.delete(answer);
+        return url;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/answer/like/{id}")
+    public String answerLike(@PathVariable("id") Integer id,
+                               Principal principal) {
+        Answer answer = answerService.getDetail(id);
+        SiteUser siteUser = userService.getUser(principal.getName());
+        answerService.like(answer, siteUser);
+        String url = String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), id);
         return url;
     }
 }

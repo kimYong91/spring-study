@@ -109,4 +109,15 @@ public class QuestionController {
         questionService.delete(question);
         return "redirect:/";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/question/like/{id}")
+    public String questionLike(@PathVariable("id") Integer id,
+                                 Principal principal) {
+        Question question = questionService.getDetail(id);
+        SiteUser siteUser = userService.getUser(principal.getName());
+        questionService.like(question, siteUser);
+        String url = String.format("redirect:/question/detail/%s", id);
+        return url;
+    }
 }

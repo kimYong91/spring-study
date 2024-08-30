@@ -22,13 +22,14 @@ public class AnswerService {
         create(question, content, null);
     }
 
-    public void create(Question question, String content, SiteUser author){
+    public Answer create(Question question, String content, SiteUser author){
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setQuestion(question);
         answer.setSiteUser(author);
         answer.setCreateDate(LocalDateTime.now());
         answerRepository.save(answer);
+        return answer;
     }
 
     public void modify(Answer answer, String content) {
@@ -48,5 +49,11 @@ public class AnswerService {
 
     public void delete(Answer answer) {
         answerRepository.delete(answer);
+    }
+
+    public void like(Answer answer, SiteUser siteUser) {
+        // add한 정보가 중복이 되면 자동으로 무시된다
+        answer.getLike().add(siteUser);
+        answerRepository.save(answer);
     }
 }

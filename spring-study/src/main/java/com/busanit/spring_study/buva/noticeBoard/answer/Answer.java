@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 // 만드는 순서 1
 @Data
@@ -38,5 +39,7 @@ public class Answer {
     public Answer(){}
     public Answer(String table_name){}
 
+    @ManyToMany
+    private Set<SiteUser> Like;
 }
 

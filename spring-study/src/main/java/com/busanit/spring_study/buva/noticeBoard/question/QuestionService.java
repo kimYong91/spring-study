@@ -69,4 +69,10 @@ public class QuestionService {
     public void delete(Question question) {
         questionRepository.delete(question);
     }
+
+    public void like(Question question, SiteUser siteUser) {
+        // add한 정보가 중복이 되면 자동으로 무시된다
+        question.getLike().add(siteUser);
+        questionRepository.save(question);
+    }
 }
