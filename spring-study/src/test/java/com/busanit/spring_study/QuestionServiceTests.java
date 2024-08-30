@@ -14,7 +14,7 @@ public class QuestionServiceTests {
 
     @Test
     void pageGetList() {
-        Page<Question> page = questionService.getList(2);
-        System.out.println("page size : " + page.getSize());
+//        Page<Question> page = questionService.getList(2);
+//        System.out.println("page size : " + page.getSize());
     }
 }

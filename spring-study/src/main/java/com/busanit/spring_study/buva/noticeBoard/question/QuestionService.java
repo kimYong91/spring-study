@@ -92,13 +92,22 @@ public class QuestionService {
             public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);
 
-                // DB 쿼리 :
-                // SELECT * FROM QUESTION q
-                // left outer join ANSWER a on q.id = a.question_id
-                // left outer join SITE_USER s on q.site_user_id = s.id
-                // where
-                // q.subject like '%제목%'
-                // or a.content like '%제목%' 동일한 역할
+                /*
+                DB 쿼리 :
+                "select " +
+                "distinct q " +
+                "from Question q " +
+                "left outer join SiteUser u1 on q.siteUser = u1 " +
+                "left outer join Answer a on a.question = q " +
+                "left outer join SiteUser u2 on a.siteUser = u2 " +
+                "where " +
+                "q.subject like %:kw% " +
+                "or q.content like %:kw% " +
+                "or u1.username like %:kw% " +
+                "or a.content like %:kw% " +
+                "or u2.username like %:kw% "
+                동일한 역할
+                 */
 
                 // left outer join site_user s on q.site_user_id = s.id
                 Join<Question, SiteUser> u1 = q.join("siteUser", JoinType.LEFT); // siteUser : Question 클래스 안의 siteUser 객체 이름, 외래키 이름

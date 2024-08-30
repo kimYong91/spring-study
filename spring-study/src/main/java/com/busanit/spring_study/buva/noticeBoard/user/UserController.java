@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 // RequestMapping() : '()'안의 주소가 이 클래스안에 만드는 모든 메서드의 공통 주소가 됨
 // 예 : 메서드 주소 /create > /user/create
 @RequestMapping("/user")
-// 매개변수 생성자
+// 매개변수 생성자 (final 붙은 것들만 생성자를 만들어줌)
 @RequiredArgsConstructor
 public class UserController {
 

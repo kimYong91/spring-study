@@ -25,7 +25,7 @@ public class Answer {
 //    @Column(name = "writeDate", table = "BBS")    // 설정을 하면 테이블명을 원하는데로 정할 수 있음
     private LocalDateTime createDate;
 
-    // 하나의 질문에
+    // 하나의 질문에 여러 답변을 할 수 있다.
     @ManyToOne
     private Question question;
 
@@ -39,6 +39,9 @@ public class Answer {
     public Answer(){}
     public Answer(String table_name){}
 
+    // 여러 사람이 여러 답변에 여러 좋아요를 할 수 있다.
+    // 한 사람이 여러 좋아요를 할 수 있다.
+    // 한 답변은 여러 좋아요를 받을 수 있다.
     @ManyToMany
     private Set<SiteUser> Like;
 }

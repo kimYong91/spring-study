@@ -40,6 +40,9 @@ public class Question {
 
     private LocalDateTime ModifyDate;
 
+    // 여러 사람이 여러 질문에 여러 좋아요를 할 수 있다.
+    // 한 사람이 여러 좋아요를 할 수 있다.
+    // 한 질문은 여러 좋아요를 받을 수 있다.
     @ManyToMany
     private Set<SiteUser> Like;
 }

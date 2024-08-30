@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// 만드는 순서 1
+// 만드는 순서
 @Data
 public class UserCreateForm {
 

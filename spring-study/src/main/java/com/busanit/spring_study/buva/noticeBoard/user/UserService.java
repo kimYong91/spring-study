@@ -34,6 +34,7 @@ public class UserService {
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
+                        // 커스텀 예외 클래스
             throw new DataNotFoundException("siteUser not found");
         }
     }
