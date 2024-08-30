@@ -21,11 +21,13 @@ public class UserController {
     private final UserService userService;
 
     // 매개변수를 직접적으로 사용하지 않아도 필수로 작성해야함
+    // 이 메서드는 처음 화면을 볼때의 정보들이고
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
         return "signup_form";
     }
 
+    // 이 메서드는 실제로 기능을 사용했을때 발생시킬 메서드라고 보면 됨
     @PostMapping("/signup")
     public String signup(@Valid UserCreateForm userCreateForm,
                          BindingResult bindingResult) {

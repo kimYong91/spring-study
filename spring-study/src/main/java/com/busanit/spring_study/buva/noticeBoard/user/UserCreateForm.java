@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 // 만드는 순서
+// 제약사항을 설정하는 클래스
+// DTO 클래스
 @Data
 public class UserCreateForm {
 
