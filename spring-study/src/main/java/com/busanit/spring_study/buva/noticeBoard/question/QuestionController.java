@@ -28,9 +28,12 @@ public class QuestionController {
     private UserService userService;
 
     @GetMapping("/question/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<Question> questionList = questionService.getList(page);
+    public String list(Model model,
+                       @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Question> questionList = questionService.getList(page, kw);
         model.addAttribute("questionList", questionList);
+        model.addAttribute("kw", kw);
         log.debug(model.toString());
         log.debug("dkdkdkdk");
         log.info("dddd");
