@@ -35,8 +35,8 @@ public class QuestionService {
         sorts.add(Sort.Order.desc("createDate"));   // 게시물 생성날짜 순으로 정렬
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         Specification<Question> spec = search(kw);
-//        return questionRepository.findAll(spec, pageable);
-        return questionRepository.findAllByKeyword(kw, pageable);
+        return questionRepository.findAll(spec, pageable);
+//        return questionRepository.findAllByKeyword(kw, pageable);
     }
 
     // id로 질문 조회
