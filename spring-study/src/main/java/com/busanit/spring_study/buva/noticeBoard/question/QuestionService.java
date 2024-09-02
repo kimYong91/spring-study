@@ -31,7 +31,7 @@ public class QuestionService {
 
     // 페이지네이션 + 게시물 최신순 정렬 + 검색어 받기
     public Page<Question> getList(int page, String kw) {
-        List<Sort.Order> sorts = new ArrayList<>(); // 게시물 최신순 정렬
+        List<Sort.Order> sorts = new ArrayList<>(); // 게시물 최신순 정렬시키는 빈 리스트
         sorts.add(Sort.Order.desc("createDate"));   // 게시물 생성날짜 순으로 정렬
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         Specification<Question> spec = search(kw);

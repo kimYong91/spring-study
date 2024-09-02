@@ -53,6 +53,7 @@ public class UserController {
                     e.getMessage());
             return "signup_form";
         }
+                // redirect:/ : 메서드가 정상적으로 모두 다 실행되면 마지막에 "/" 이 디렉토리로 간다.
         return "redirect:/";
     }
 

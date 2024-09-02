@@ -3,25 +3,32 @@
 <div layout:fragment="content" class="container my-3">
     <div class="my-3 border-bottom">
         <h4>회원 가입</h4>
-    </div>
+    </div>                       <!-- th:object="${userCreateForm}" : UserCreateForm userCreateForm = new UserCreateForm 해서 불러오는 것과 비슷하게 보면 됨-->
     <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+
+                    <!-- ~{form_errors :: formErrorsFragment} : 클래스 개념으로 보면 form_errors클래스 안의 formErrorsFragment 메서드 혹은 필드 값을 부른거라고 보면 됨 -->
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">
             <label for="username" class="form-label">사용자 아이디</label>
+                                                             <!-- th:field="*{username} : UserCreateForm의 클래스안의 필드값 username과 연결하는 코드 -->
             <input id="username" class="form-control" type="text" th:field="*{username}">
         </div>
         <div class="mb-3">
             <label for="password1" class="form-label">비밀번호</label>
+                                                                  <!-- th:field="*{password1} : UserCreateForm의 클래스안의 필드값 password1과 연결하는 코드 -->
             <input id="password1" class="form-control" type="password" th:field="*{password1}">
         </div>
         <div class="mb-3">
             <label for="password2" class="form-label">비밀번호</label>
+                                                                  <!-- th:field="*{password2} : UserCreateForm의 클래스안의 필드값 password2와 연결하는 코드 -->
             <input id="password2" class="form-control" type="password" th:field="*{password2}">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
+                                                           <!-- th:field="*{email} : UserCreateForm의 클래스안의 필드값 email과 연결하는 코드 -->
             <input id="email" class="form-control" type="email" th:field="*{email}">
-        </div>                                     <!-- type="email : 웹(UI)에서 이메일 형식인지 검사, 어노테이션의 @Email과는 다른 것 -->
+        </div>                                <!-- type="email : 웹(UI)에서 이메일 형식인지 검사, 어노테이션의 @Email과는 다른 것 -->
+
         <button type="submit" class="btn btn-primary">회원 가입</button>
     </form>
 </div>
