@@ -2,11 +2,11 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
     <h5 class="my-3 border-bottom pd-2">답변 수정</h5>
-    <!--  questionForm이걸 따로 만들어서 경고용 내용을 만들고, 여기서 불러와 사용.  -->
+     <!-- th:object="${answerForm}" : AnswerForm answerForm = new AnswerForm 해서 불러오는 것과 비슷하게 보면 됨-->
     <form th:object="${answerForm}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
-        <!--    form_errors이 html에서 formErrorsFragment이걸 불러옴. 다른 곳에서도 불러와 사용가능    -->
+                    <!-- ~{form_errors :: formErrorsFragment} : 클래스 개념으로 보면 form_errors클래스 안의 formErrorsFragment 메서드 혹은 필드 값을 부른거라고 보면 됨 -->
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
 
         <div class="mb-3">

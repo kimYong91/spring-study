@@ -29,9 +29,12 @@ public class QuestionController {
 
     @GetMapping("/question/list")
     public String list(Model model,
+                       // @RequestParam : url에서 주는 정보에서 키 값을 기준으로 정보를 분류해서 가져옴
+                       // 즉, html 에서 /question/list?kw=spring&page=2 이렇게 만들면 kw 이걸 키값으로 정보를 분류해서 spring 이걸 가져온다.
                        @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw) {
         Page<Question> questionList = questionService.getList(page, kw);
+        //Model model = new Model : model은 마치 빈 객체를 만들어 정보를 저장하고 html에 전달하는 기능이라고 보면 됨
         model.addAttribute("questionList", questionList);
         model.addAttribute("kw", kw);
         log.debug(model.toString());
@@ -57,8 +60,10 @@ public class QuestionController {
     }
 
     @PreAuthorize("isAuthenticated()") // 로그인 되었을때만 동작한다.
-    @PostMapping("/question/create")                                                            // Principal : 로그인 된 유저 네임을 가져올수 있음, 스프링에서 만듬
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
+    @PostMapping("/question/create")
+                                // @Valid : QuestionForm 객체의 필드에 설정된 유효성 제약 조건을 검사합니다. 예를 들어, 제목이나 내용의 필수 입력, 길이 제한 등을 체크
+                                                                // BindingResult : @Valid 어노테이션이 붙은 객체의 유효성 검사 결과를 담는 객체, 스프링에서 만듬
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) { // Principal : 현재 로그인한 사용자의 정보를 담고 있는 객체, 스프링에서 만듬
         if(bindingResult.hasErrors()) {
             return "question_form";
         }
@@ -73,7 +78,7 @@ public class QuestionController {
     @GetMapping("/question/modify/{id}")
     public String questionModify(QuestionForm questionForm,
                                  @PathVariable("id") Integer id,
-                                 Principal principal) {
+                                 Principal principal) {  // Principal : 현재 로그인한 사용자의 정보를 담고 있는 객체, 스프링에서 만듬
         Question question = questionService.getDetail(id);
         if (!question.getSiteUser().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
@@ -85,10 +90,10 @@ public class QuestionController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/question/modify/{id}")
-    public String questionModify(QuestionForm questionForm,
+    public String questionModify(@Valid QuestionForm questionForm,
                                  BindingResult bindingResult,
                                  @PathVariable("id") Integer id,
-                                 Principal principal) {
+                                 Principal principal) {  // Principal : 현재 로그인한 사용자의 정보를 담고 있는 객체, 스프링에서 만듬
         if(bindingResult.hasErrors()) {
             return "question_form";
         }
