@@ -22,6 +22,11 @@ import java.security.Principal;
 @Controller
 public class QuestionController {
 
+    /* Model (데이터 전달용 빈 객체)
+    있는 경우 : 입력받은 값 또는 기존에 존재하는 값을 화면에 출력하려면 그 정보를 전달용 빈 객체(Model)가 필요하다.
+    없는 경우 : 입력받은 값을 출력할 필요가 없다면 전달용 빈 객체(Model)를 만들 필요가 없다.
+    */
+
     @Autowired
     private QuestionService questionService;
     @Autowired
@@ -33,10 +38,14 @@ public class QuestionController {
                        // 즉, html 에서 /question/list?kw=spring&page=2 이렇게 만들면 kw 이걸 키값으로 정보를 분류해서 spring 이걸 가져온다.
                        @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw) {
+        // Page 인 이유가 getList 의 return 타입이 Page 이기 때문이다.
         Page<Question> questionList = questionService.getList(page, kw);
-        //Model model = new Model : model은 마치 빈 객체를 만들어 정보를 저장하고 html에 전달하는 기능이라고 보면 됨
+        // Model model = new Model : model은 마치 빈 객체를 만들어 정보를 저장하고 html에 전달하는 기능이라고 보면 됨
+        // 여기서 Model 이 필요한 이유는 questionList 이게 정보를 담아있기 때문에 html에 정보를 전달할 매개체가 Model이기 때문이다.
         model.addAttribute("questionList", questionList);
         model.addAttribute("kw", kw);
+
+        // model.addAttribute("page", page); 가 없어도 되는 이유는 Page라는 타입 안에 이미 현재 페이지의 정보가 담겨 있기 때문이다.
         log.debug(model.toString());
         log.debug("dkdkdkdk");
         log.info("dddd");
