@@ -55,6 +55,7 @@ public class QuestionController {
     }
 
     @GetMapping(value = "question/detail/{id}") // value = {} : {}의 요소가 동적으로 바뀐다는 의미
+                                   // @PathVariable(value = "id") 와 @PathVariable("id")는 동일
     public String detail(Model model, @PathVariable("id") Integer id, // "question/detail/{id}"이곳에 있는 id를  @PathVariable("id") 이곳에서 받아서 Integer id 이곳에 준다.
                          AnswerForm answerForm) {
         Question question = questionService.getDetail(id);
@@ -63,7 +64,8 @@ public class QuestionController {
     }
 
     @PreAuthorize("isAuthenticated()") // 로그인 되었을때만 동작한다.
-    @GetMapping("/question/create")   // QuestionForm questionForm : 안쓰더라도 꼭 입력을 해야 에러가 안남
+    @GetMapping("/question/create")   // QuestionForm questionForm : 자동으로 코드에는 안보이지만 model.addAttribute("questionForm", new QuestionForm()); 이렇게 되고 그 정보를 question_form으로 넘긴다.
+                                      // 즉, Spring이 자동으로 빈 QuestionForm 객체를 생성하여 모델에 추가된다.
     public String questionCreate(QuestionForm questionForm) {
         return "question_form";
     }
@@ -72,6 +74,7 @@ public class QuestionController {
     @PostMapping("/question/create")
                                 // @Valid : QuestionForm 객체의 필드에 설정된 유효성 제약 조건을 검사합니다. 예를 들어, 제목이나 내용의 필수 입력, 길이 제한 등을 체크
                                                                 // BindingResult : @Valid 어노테이션이 붙은 객체의 유효성 검사 결과를 담는 객체, 스프링에서 만듬
+                                                                // 여기서 유효성은 question_form의 제약조건을 말한다.
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) { // Principal : 현재 로그인한 사용자의 정보를 담고 있는 객체, 스프링에서 만듬
         if(bindingResult.hasErrors()) {
             return "question_form";
@@ -83,20 +86,27 @@ public class QuestionController {
         return url;
     }
 
+    // 질문 수정 전 내용 출력
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/question/modify/{id}")
+                                // 질문 수정 전 내용 출력만 하면 되기 때문에 ㅇ효성 검사가 필요 없음
     public String questionModify(QuestionForm questionForm,
                                  @PathVariable("id") Integer id,
                                  Principal principal) {  // Principal : 현재 로그인한 사용자의 정보를 담고 있는 객체, 스프링에서 만듬
+                                        // id에 맞춰서 출력을 해야해서 getDetail(id)가 필요함
         Question question = questionService.getDetail(id);
         if (!question.getSiteUser().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
+
+        // 비어있는 questionForm에 이전 내용을 채우는 코드
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
+
         return "question_form";
     }
 
+    // 질문 수정
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/question/modify/{id}")
     public String questionModify(@Valid QuestionForm questionForm,
@@ -104,7 +114,7 @@ public class QuestionController {
                                  @PathVariable("id") Integer id,
                                  Principal principal) {  // Principal : 현재 로그인한 사용자의 정보를 담고 있는 객체, 스프링에서 만듬
         if(bindingResult.hasErrors()) {
-            return "question_form";
+            return "question_form"; // 수정은 질문 만드는것과 내용은 같아서 question_form을 같이 쓸수 있음
         }
         Question question = questionService.getDetail(id);
         if (!question.getSiteUser().getUsername().equals(principal.getName())) {

@@ -43,6 +43,7 @@ public class QuestionService {
     public Question getDetail(Integer id) {
         Optional<Question> question = questionRepository.findById(id);
         if (question.isPresent()) {
+                // question.get() 에서 get()을 쓰는 이유 : Optional은 값이 존재할 때 get을 써야지 값을 반환한다.
             return question.get();
         } else {
             throw new DataNotFoundException("question not found");
