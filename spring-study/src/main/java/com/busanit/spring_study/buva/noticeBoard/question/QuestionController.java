@@ -86,7 +86,7 @@ public class QuestionController {
         return url;
     }
 
-    // 질문 수정 전 내용 출력
+    // 질문 수정 전 내용 출력(수정 폼을 보여주는 역할)
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/question/modify/{id}")
                                 // 질문 수정 전 내용 출력만 하면 되기 때문에 ㅇ효성 검사가 필요 없음
@@ -106,7 +106,7 @@ public class QuestionController {
         return "question_form";
     }
 
-    // 질문 수정
+    // 질문 수정 (수정된 데이터를 제출하는 역할)
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/question/modify/{id}")
     public String questionModify(@Valid QuestionForm questionForm,
